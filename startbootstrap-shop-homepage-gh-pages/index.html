@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dineen Insurance</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Bootstrap icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+    <script>
+
+
+
+        function calculate(cAge, gender, phone, startDate, cover, fuel, age, claims, mileage, value, security, carUse, make, model) {
+            var total = 0;
+            var isValidated = 0;
+            var error = "";
+            //Validate Age
+            if (!isNaN(cAge)) {
+                if (cAge > 16 && cAge < 120) {
+
+                    if (cAge < 25)
+                        total += 500;
+                    if (cAge >= 25 && cAge <= 30)
+                        total += 350;
+                    if (cAge > 30 && cAge < 65)
+                        total += 200;
+                    if (cAge > 65)
+                        total += 500;
+
+                }
+                else {
+                    error += "-Must Enter a Valid Age from 17 to 120 \n";
+                    document.getElementById("cAge").focus();
+                    document.getElementById("cAge").style.color = "red";
+                    document.getElementById("textCAge").style.color = "red";
+
+                    isValidated++;
+
+
+                }
+            }
+            else {
+                error += "-Must Enter Age as a Number\n";
+                document.getElementById("cAge").focus();
+                document.getElementById("cAge").style.color = "red";
+                document.getElementById("textCAge").style.color = "red";
+
+                isValidated++;
+            }
+
+
+            //Validate Gender
+            if (gender == 'F') {
+                total += 250;
+
+            }
+            else if (gender == 'M') {
+                total += 400;
+            }
+            else {
+                error += "-Gender Must be entered\n";
+                document.getElementById("gender").focus();
+                document.getElementById("textGender").style.color = "red";
+
+                isValidated++;
+
+
+            }
+
+
+
+            //Validate Phone Number
+            if (!isNaN(phone)) {
+
+                if (phone.length == 10) {
+
+                }
+                else {
+                    error += "-Phone Number Must be 10 numbers\n";
+                    document.getElementById("phoneNum").focus();
+                    document.getElementById("phoneNum").style.color = "red";
+                    document.getElementById("textPhoneNum").style.color = "red";
+                    isValidated++;
+
+                }
+            } else {
+                error += "-Phone Number Must be numeric\n";
+                document.getElementById("question3").focus();
+                document.getElementById("question3").style.color = "red";
+                document.getElementById("textQuestion3").style.color = "red";
+                isValidated++;
+            }
+
+
+
+
+            //Validate Start Date
+
+            //validate each dd mm yyyy is correct
+            var sDateFormat = (startDate.substring(3, 5) + '-' + startDate.substring(0, 2) + '-' + startDate.substring(6, 10));
+           // https://stackoverflow.com/questions/10194464/javascript-dd-mm-yyyy-date-check
+            var dateFormat = /(0[1-9]|[12][0-9]|3[01])[-](0[1-9]|1[012])[-](19|20)\d\d/;
+            if (!dateFormat.test(startDate)) {
+                error += "-Policy Start Date Wrong Format Or Non Digits Entered \n";
+                document.getElementById("policy").focus();
+                document.getElementById("policy").style.color = "red";
+                document.getElementById("textPolicy").style.color = "red";
+                isValidated++;
+
+                if (startDate.length != 10) {
+                    error += "-Policy Start Date, Incorrect Date Lenght\n";
+                }
+                else if (parseInt(startDate.substring(0, 2)) > 31 || parseInt(startDate.substring(0, 2)) < 1) {
+                    error += "-Policy Start Date Day incorrect\n";
+                }
+                else if (parseInt(startDate.substring(3, 5)) > 12 || parseInt(startDate.substring(3, 5)) < 1) {
+                    error += "-Policy Start Date Month incorrect\n";
+                }
+                else if (parseInt(startDate.substring(6, 10)) > 2999 || parseInt(startDate.substring(6, 10)) < 2000) {
+                    error += "-Policy Start Date Year incorrect\n";
+
+                }
+            }
+            else {
+                var today = new Date();
+                var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+                s1 = new Date(sDateFormat);
+                d1 = new Date(date);
+                if (startDate.length != 10) {
+                    error += "-Incorrect Date Lenght\n";
+                    document.getElementById("policy").focus();
+                    document.getElementById("policy").style.color = "red";
+                    document.getElementById("textPolicy").style.color = "red";
+
+                    isValidated++;
+                }
+                else if (s1 < d1) {
+                    error += "-Cannot be Before Current Date\n";
+                    document.getElementById("policy").focus();
+                    document.getElementById("policy").style.color = "red";
+                    document.getElementById("textPolicy").style.color = "red";
+
+                    isValidated++;
+
+                } else {
+
+                }
+            }
+
+
+
+
+            //Validate Type of Cover
+
+            if (cover == "Fully Comprehensive") {
+                total += 400;
+            }
+            else if (cover == "Third Party Fire And Theft") {
+                total += 200;
+            }
+
+
+
+
+            //Validate Make
+            if (make == -1) {
+                error += "-Must Select A Vehicle Make\n";
+                document.getElementById("make").focus();
+                document.getElementById("textModel").style.color = "red";
+                document.getElementById("textMake").style.color = "red";
+
+                isValidated++;
+            }
+
+
+            //Validate Fuel
+            if (fuel == "Diesel") {
+                total += 50;
+            }
+            if (fuel == "Petrol") {
+                total += 40;
+            }
+            if (fuel == "Hybrid") {
+                total += 20;
+            }
+
+
+
+
+            //Validate Age
+            if (age == '') {
+                error += "-Nothing Entered For Vehicle Age\n";
+                document.getElementById("age").focus();
+                document.getElementById("age").style.color = "red";
+                document.getElementById("textAge").style.color = "red";
+
+                isValidated++;
+            }
+            else if (!isNaN(age)) {
+                if (age < 0) {
+                    error += "-Vehicle Age Can not be a negative number\n";
+                    document.getElementById("age").focus();
+                    document.getElementById("age").style.color = "red";
+                    document.getElementById("textAge").style.color = "red";
+
+                    isValidated++;
+                }
+                if (age < 3) {
+                    total += 100;
+
+                }
+                if (age >= 3 && age < 6) {
+                    total += 70;
+                }
+                if (age >= 6 && age < 10) {
+                    total += 50;
+                }
+                if (age >= 10) {
+                    total += 20;
+                }
+            } else {
+                error += "-Vehicle Age Must be numeric\n";
+                document.getElementById("age").focus();
+                document.getElementById("age").style.color = "red";
+                document.getElementById("textAge").style.color = "red";
+
+                isValidated++;
+            }
+
+
+
+
+            //Validate No Claims Bonus
+            if (claims == "1 Year") {
+                total += 100;
+            }
+            if (claims == "2 Years") {
+                total += 80;
+            }
+            if (claims == "3 Years") {
+                total += 60;
+            }
+            if (claims == "4 Years") {
+                total += 40;
+            }
+            if (claims == '5 Years Or Greater') {
+                total += 20;
+            }
+
+
+
+
+            //Validate Mileage Per Year
+
+            if (mileage == '') {
+                error += "-No Yearly Mileage Per Year Entered\n";
+                document.getElementById("mileage").focus();
+                document.getElementById("mileage").style.color = "red";
+                document.getElementById("textMileage").style.color = "red";
+
+                isValidated++;
+            }
+            else if (!isNaN(mileage)) {
+                if (mileage < 0) {
+                    error += "-Yearly MileageCan not be a negative number\n";
+                    document.getElementById("mileage").focus();
+                    document.getElementById("mileage").style.color = "red";
+                    document.getElementById("textMileage").style.color = "red";
+
+                    isValidated++;
+                }
+                if (mileage < 15000) {
+                    total += 30;
+
+                }
+                if (mileage >= 15000 && mileage < 25000) {
+                    total += 40;
+                }
+                if (mileage >= 25000) {
+                    total += 50;
+                }
+            } else {
+                error += "-Yearly Mileage Must be numeric\n";
+                document.getElementById("mileage").focus();
+                document.getElementById("mileage").style.color = "red";
+                document.getElementById("textMileage").style.color = "red";
+
+                isValidated++;
+            }
+
+
+
+            //Validate Value
+
+            if (value.substring(0, 1) == '€') {
+                var num = value.substring(1);
+            }
+            else {
+                var num = value.substring(0);
+            }
+
+
+            if (num == '') {
+                error += "-No Vehicle Value Entered\n";
+                document.getElementById("value").focus();
+                document.getElementById("value").style.color = "red";
+                document.getElementById("textValue").style.color = "red";
+
+                isValidated++;
+            }
+            else if (!isNaN(num)) {
+                var valuePercent = (num / 100) * 10;
+                total += valuePercent
+            } else {
+                error += "-Vehicle Value Must be numeric\n";
+                document.getElementById("value").focus();
+                document.getElementById("value").style.color = "red";
+                document.getElementById("textValue").style.color = "red";
+
+                isValidated++;
+            }
+
+            //Validate Security
+
+
+            if (security == "None") {
+                total += 100;
+            }
+            else if (security == "Alarm") {
+                total += 70;
+            }
+            else if (security == "Immobiliser") {
+                total += 50;
+            }
+            else if (security == "Alarm & Immobiliser") {
+                total += 30;
+            }
+            else if (security == "Tracking Device, Alarm & Immobiliser") {
+                total += 10;
+            }
+            else {
+                error += "-No Security Selected\n";
+                document.getElementById("security").focus();
+                document.getElementById("security").style.color = "red";
+                document.getElementById("textSecurity").style.color = "red";
+
+                isValidated++;
+            }
+
+            //Validate CarUse
+            if (carUse == 'Social Domestic and Pleasure') {
+                total += 30;
+            }
+            else if (carUse == 'Class 1') {
+                total += 50;
+            }
+            else {
+                error += "-No Use Option Selected \n";
+                document.getElementById("carUse").focus();
+                document.getElementById("carUse").style.color = "red";
+                document.getElementById("textCarUse").style.color = "red";
+
+                isValidated++;
+
+            }
+
+
+
+
+
+            if (isValidated == 0) {
+                document.getElementById("total").value = total;
+                document.getElementById("insuranceForm").action = "Process.html";
+                document.getElementById("calcButton").type = "Submit";
+            }
+            else {
+
+                alert(error);
+
+            }
+            error = "";
+        }
+
+
+        //Help 
+        function policyHelp() {
+            var helpOpen = document.getElementById("helpPolicy").style.display;
+            if (helpOpen == "block") {
+                document.getElementById("helpPolicy").style.display = "none";
+            }
+            else {
+                document.getElementById("helpPolicy").style.display = "block";
+            }
+        }
+        function typeHelp() {
+
+            var helpOpen = document.getElementById("helpType").style.display;
+            if (helpOpen == "block") {
+                document.getElementById("helpType").style.display = "none";
+            }
+            else {
+                document.getElementById("helpType").style.display = "block";
+            }
+        }
+        function claimsHelp() {
+
+            var helpOpen = document.getElementById("helpClaims").style.display;
+            if (helpOpen == "block") {
+                document.getElementById("helpClaims").style.display = "none";
+            }
+            else {
+                document.getElementById("helpClaims").style.display = "block";
+            }
+        }
+        function valueHelp() {
+
+            var helpOpen = document.getElementById("helpValue").style.display;
+            if (helpOpen == "block") {
+                document.getElementById("helpValue").style.display = "none";
+            }
+            else {
+                document.getElementById("helpValue").style.display = "block";
+            }
+        }
+        function useHelp() {
+
+            var helpOpen = document.getElementById("helpUse").style.display;
+            if (helpOpen == "block") {
+                document.getElementById("helpUse").style.display = "none";
+            }
+            else {
+                document.getElementById("helpUse").style.display = "block";
+            }
+        }
+
+
+    </script>
+
+
+
+
+
+
+
+</head>
+
+<body>
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container px-4 px-lg-5">
+            <img id="headImg" src="Images/DineenIns.png" alt="Header Image" width="160" height="70">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Get A Quote</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Claims</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#!">Renew</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Get a Quote</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Quote available online in minutes </p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Timer -->
+    <div id="time" method="get"></div>
+    <!-- Section-->
+
+    <td valign="top">
+        <table cellpadding="0" cellspacing="0">
+
+            <tr>
+                <td>
+                    <form id="insuranceForm" method="get">
+                        <h2>Please Fill out this form for your insurance Quote</h2><br>
+                        <p>
+                            <!--Age-->
+                            <strong id="textCAge">1. Please Enter your Age?</strong>
+
+
+                        </p>
+                        <p>
+                            <input type="text" id="cAge" name="Age" value="" /><br />
+
+                        <p>
+                            <!--Gender-->
+                            <strong id="textGender">2. Gender </strong>
+                        <p>
+
+                            <input type="radio" name="Gender" id="gender" checked="checked" value="M"
+                                onclick="document.getElementById('gender').value='M'"> M <br>
+                            <input type="radio" name="Gender" id="gender" value="Female"
+                                onclick="document.getElementById('gender').value='F'"> F<br>
+
+
+
+                        <p>
+                            <!--Telephone-->
+                            <strong id="textPhoneNum">3. Telephone Number</strong>
+                        </p>
+                        <p>
+                            <input type="text" id="phoneNum" name="Phone Number" value="" /><br />
+
+
+
+                        <p>
+                            <!--Policy Start Date-->
+                            <strong id="textPolicy" onclick="policyHelp()">4. Policy Start Date *</strong>
+                        <div id="helpPolicy" style="display: none;">
+                            <p style="color: rgb(118, 208, 210);">This is a starting date for which your policy will
+                                commence.</p>
+                        </div>
+                        <p style="opacity: 50%;">DD-MM-YYYY</p>
+                        </p>
+                        <p>
+                            <input type="text" id="policy" name="Policy Start Date" value="" /><br />
+
+
+                        <p>
+                            <!--Type Of Cover   help icon-->
+                            <strong id="textCover" onclick="typeHelp()">5. Type of Cover *</strong>
+                        <div id="helpType" style="display: none;">
+                            <p style="color: rgb(118, 208, 210);">Fully Comprehensive Insurance Covers a Wide Range of
+                                Damages, <br> injuries and loss to your vehicle or passangers aswell as <br>providing
+                                the coverage of third part fire and theft. <br><br> Third Party Fire And Theft Coverage
+                                lets you claim for a replacment car <br>if yours is stolen, this also covers damages as
+                                a result of fire. </p>
+                        </div>
+
+                        </p>
+                        <p>
+                            <select name="Type Of Cover" id="cover">
+                                <option value="Fully Comprehensive">Fully Comprehensive</option>
+                                <option value="Third Party Fire And Theft">Third Party Fire And Theft</option>
+                                <br />
+                            </select>
+
+
+                        <p>
+                            <!--Make-->
+                            <strong id="textMake">6. Make of Vehicle</strong>
+                        </p>
+                        <p>
+                            <select id="make" style="width: 200px;" name="Make">
+                                <option value="-1">Select Make</option>
+                                <option value="Alpha Romeo">Alpha Romeo</option>
+                                <option value="Audi">Audi</option>
+                                <option value="BMW">BMW</option>
+                                <option value="Ford">Ford</option>
+                                <option value="Honda">Honda</option>
+                                <option value="Hyundai">Hyundai</option>
+                                <option value="Kia">Kia</option>
+                                <option value="Land Rover">Land Rover</option>
+                                <option value="Mazda">Mazda</option>
+                                <option value="Mercedes">Mercedes</option>
+                                <option value="Nissan">Nissan</option>
+                                <option value="Peugeot">Peugeot</option>
+                                <option value="Renault">Renault</option>
+                                <option value="Skoda">Skoda</option>
+                                <option value="Toyota">Toyota</option>
+                                <option value="Volkswagen">Volkswagen</option>
+
+                            </select>
+                        <p>
+
+                        <p>
+                            <!--Model-->
+                            <strong id="textModel">7. Model of Vehicle</strong>
+                        </p>
+                        <p>
+                            <select id="model" style="width: 200px;" name="Model">
+                                <option>&nbsp;</option>
+
+
+                            </select>
+                        <p>
+
+                        <p>
+                            <!--Fuel Type-->
+                            <strong id="textFuel">8. Fuel Type</strong>
+                        </p>
+                        <p>
+                            <select name="Fuel Type" id="fuel">
+                                <option value="Diesel">Diesel</option>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <br />
+                            </select>
+
+                        <p>
+                            <!--Car Age-->
+                            <strong id="textAge">9. Please Enter Age Of The Car</strong>
+                        </p>
+                        <p>
+                            <input type="text" id="age" value="" name="Vehicle Age" /><br />
+
+                        <p>
+                            <!--No Claims  help icon-->
+                            <strong id="textClaims" onclick="claimsHelp()">10. Claims Free Years *</strong>
+                        <div id="helpClaims" style="display: none;">
+                            <p style="color: rgb(118, 208, 210);">This is the number of consecutive years claims<br>
+                                free you have as a policy holder. </p>
+                        </div>
+
+                        </p>
+                        <p>
+                            <select name="No Claims Bonus " id="claims">
+                                <option value="1 Year">1 Year</option>
+                                <option value="2 Years">2 Years</option>
+                                <option value="3 Years">3 Years</option>
+                                <option value="4 Years">4 Years</option>
+                                <option value="5 Years or Greater">5 Years or Greater</option>
+
+                                <br />
+                            </select>
+
+                        <p>
+                            <!--Mileage Per Year-->
+                            <strong id="textMileage">11. Please Enter Mileage you Travel Per Year</strong>
+                        </p>
+                        <p>
+                            <input type="text" id="mileage" value="" name="Mileage Per Year" /><br />
+
+                        <p>
+                            <!--Value Of Car   help icon-->
+                            <strong id="textValue" onclick="valueHelp()">12. Value of Car *</strong>
+
+                        <div id="helpValue" style="display: none;">
+                            <p style="color: rgb(118, 208, 210);">This is the current market value <br> of the vehicle
+                                you wish to insure. </p>
+                        </div>
+
+                        </p>
+                        <p>
+                            <input type="text" id="value" value="€" name="Vehicle Value" /><br />
+
+                        <p>
+                            <!--Security-->
+                            <strong id="textSecurity">13. Security </strong>
+                        </p>
+                        <p>
+
+                            <input type="radio" name="Security " id="security" value="None" checked="checked"
+                                onclick="document.getElementById('security').value='None'"> None <br>
+                            <input type="radio" name="Security " id="security" value="Alarm"
+                                onclick="document.getElementById('security').value='Alarm'"> Alarm <br>
+                            <input type="radio" name="Security " id="security" value="Immobiliser"
+                                onclick="document.getElementById('security').value='Immobiliser'"> Immobiliser <br>
+                            <input type="radio" name="Security " id="security" value="Alarm and Immobiliser"
+                                onclick="document.getElementById('security').value='Alarm & Immobiliser'"> Alarm &
+                            Immobiliser <br>
+                            <input type="radio" name="Security " id="security"
+                                value="Tracking Device Alarm and Immobiliser"
+                                onclick="document.getElementById('security').value='Tracking Device, Alarm & Immobiliser'">
+                            Tracking Device, Alarm &
+                            Immobiliser <br>
+
+
+                        <p>
+                            <!--Use  help icon-->
+                            <strong id="textCarUse" onclick="useHelp()">14. What Is The Car Being Used For? * </strong>
+                        <div id="helpUse" style="display: none;">
+                            <p style="color: rgb(118, 208, 210);">Social Domestic and Pleasure covers the policy
+                                <br>holder for normal day to day driving such as Shopping, <br> visiting a friend
+                                etc.<br><br> Class 1 bulids on Social Domestic and Pleasure <br> but also add the use of
+                                commuting <br>to and from your place of work or business </p>
+                        </div>
+
+                        </p>
+                        <p>
+                            <input type="radio" name="Cars Use" id="carUse" value="Social Domestic and Pleasure"
+                                checked="checked"
+                                onclick="document.getElementById('carUse').value='Social Domestic and Pleasure'"> Social
+                            Domestic and Pleasure
+                            <br>
+                            <input type="radio" name="Cars Use" id="carUse" value="Class 1"
+                                onclick="document.getElementById('carUse').value='Class 1'"> Class 1 Use
+                            <br>
+
+
+
+
+                            <br>
+                            <input id="calcButton" type="button" name="" value="Calculate"
+                                onclick="calculate(parseInt(document.getElementById('cAge').value), document.getElementById('gender').value,document.getElementById('phoneNum').value,document.getElementById('policy').value, document.getElementById('cover').value, document.getElementById('fuel').value, document.getElementById('age').value, document.getElementById('claims').value, document.getElementById('mileage').value, document.getElementById('value').value,document.getElementById('security').value,document.getElementById('carUse').value,document.getElementById('make').value,document.getElementById('model').value);" />
+                            <br>
+                        </p>
+                        <p>
+                            <input type="text" id="total" value="d" name="Total in € " style="display: none;" /><br />
+
+
+
+
+
+
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </td>
+
+    </tr>
+    </table>
+
+    <script>
+
+        let alpha = [];
+        alpha[0] = "145";
+        alpha[1] = "147";
+        alpha[2] = "156";
+        alpha[3] = "159";
+        alpha[4] = "GT";
+        alpha[5] = "Giulia";
+        alpha[6] = "Giullietta";
+        alpha[7] = "Mito";
+        alpha[8] = "Spider";
+        alpha[9] = "Stelvio";
+
+        let audi = [];
+        audi[0] = "100";
+        audi[1] = "80";
+        audi[2] = "90";
+        audi[3] = "A1";
+        audi[4] = "A2";
+        audi[5] = "A3";
+        audi[6] = "A4";
+        audi[7] = "A5";
+        audi[8] = "Q7";
+
+        let bmw = [];
+        bmw[0] = "5 Series";
+        bmw[1] = "3 Series";
+        bmw[2] = "X5";
+        bmw[3] = "1 Series";
+        bmw[4] = "7 Series";
+
+        let ford = [];
+        ford[0] = "Focus";
+        ford[1] = "Mondeo";
+        ford[2] = "Fiesta";
+        ford[3] = "Kuga";
+        ford[4] = "Galaxy";
+
+        let honda = [];
+        honda[0] = "Accord";
+        honda[1] = "Civic";
+        honda[2] = "CRV";
+        honda[3] = "Fit";
+
+        let hyundai = [];
+        hyundai[0] = "i30";
+        hyundai[1] = "Santa Fe";
+        hyundai[2] = "i40";
+        hyundai[3] = "ix35";
+        hyundai[4] = "Tucson";
+
+        let kia = [];
+        kia[0] = "Ceed";
+        kia[1] = "Sportage";
+        kia[2] = "Rio";
+        kia[3] = "Stinger";
+
+        let landRover = [];
+        landRover[0] = "Defender";
+        landRover[1] = "Discovery";
+        landRover[2] = "Evoque";
+        landRover[3] = "Range Rover";
+
+        let mazda = [];
+        mazda[0] = "MX5";
+        mazda[1] = "RX8";
+        mazda[2] = "RX7";
+        mazda[3] = "3";
+        mazda[4] = "2";
+        mazda[5] = "5";
+
+        let mercedes = [];
+        mercedes[0] = "E-Class";
+        mercedes[1] = "C-Class";
+        mercedes[2] = "S-Class";
+        mercedes[3] = "CLS-Class";
+        mercedes[4] = "A-Class";
+
+        let nissan = [];
+        nissan[0] = "Skyline";
+        nissan[1] = "Silvia";
+        nissan[2] = "Qashqai";
+        nissan[3] = "Juke";
+        nissan[4] = "Note";
+
+        let peugeot = [];
+        peugeot[0] = "206";
+        peugeot[1] = "207";
+        peugeot[2] = "307";
+        peugeot[3] = "308";
+        peugeot[4] = "407";
+
+        let renault = [];
+        renault[0] = "Clio";
+        renault[1] = "Fluence";
+        renault[2] = "Laguna";
+        renault[3] = "Scenic";
+
+        let skoda = [];
+        skoda[0] = "Octavia";
+        skoda[1] = "Superb";
+        skoda[2] = "Fabia";
+        skoda[3] = "Yeti";
+        skoda[4] = "Rapid";
+
+        let toyota = [];
+        toyota[0] = "Avensis";
+        toyota[1] = "Corolla";
+        toyota[2] = "Yaris";
+        toyota[3] = "Auris";
+        toyota[4] = "RAV4";
+
+        let volkswagen = [];
+        volkswagen[0] = "Golf";
+        volkswagen[1] = "Passat";
+        volkswagen[2] = "Polo";
+        volkswagen[3] = "Tiguan";
+        volkswagen[4] = "Jetta";
+
+
+
+
+
+        let go = function () {
+            document.getElementById("model").options.length = 0;
+
+            switch (select2.selectedIndex) {
+                case 1:
+                    for (let i = 0; i < alpha.length; ++i) {
+
+
+
+                        let option = document.createElement("option");
+                        option.text = alpha[i];
+                        option.value = alpha[i];
+                        document.getElementById("model").add(option);
+
+
+                    }
+                    break;
+                case 2:
+
+                    for (let i = 0; i < audi.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = audi[i];
+                        option.value = audi[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 3:
+
+                    for (let i = 0; i < bmw.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = bmw[i];
+                        option.value = bmw[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 4:
+
+                    for (let i = 0; i < ford.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = ford[i];
+                        option.value = ford[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 5:
+
+                    for (let i = 0; i < honda.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = honda[i];
+                        option.value = honda[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 6:
+
+                    for (let i = 0; i < hyundai.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = hyundai[i];
+                        option.value = hyundai[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 7:
+
+                    for (let i = 0; i < kia.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = kia[i];
+                        option.value = kia[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 8:
+
+                    for (let i = 0; i < landRover.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = landRover[i];
+                        option.value = landRover[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 9:
+
+                    for (let i = 0; i < mazda.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = mazda[i];
+                        option.value = mazda[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 10:
+
+                    for (let i = 0; i < mercedes.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = mercedes[i];
+                        option.value = mercedes[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 11:
+
+                    for (let i = 0; i < nissan.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = nissan[i];
+                        option.value = nissan[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 12:
+
+                    for (let i = 0; i < peugeot.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = peugeot[i];
+                        option.value = peugeot[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 13:
+
+                    for (let i = 0; i < renault.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = renault[i];
+                        option.value = renault[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 14:
+
+                    for (let i = 0; i < skoda.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = skoda[i];
+                        option.value = skoda[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 15:
+
+                    for (let i = 0; i < toyota.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = toyota[i];
+                        option.value = toyota[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+                case 16:
+
+                    for (let i = 0; i < volkswagen.length; ++i) {
+
+
+                        let option = document.createElement("option");
+                        option.text = volkswagen[i];
+                        option.value = volkswagen[i];
+                        document.getElementById("model").add(option);
+                    }
+                    break;
+
+            }
+
+        };
+
+        // Set Minutes to 4
+        //https://www.sitepoint.com/community/t/need-help-in-countdown-timer/308467
+        //Had to get some help for the timer 
+        var mins = 4.00;
+        var currentTime = Date.parse(new Date());
+        var end = new Date(currentTime + mins * 60 * 1000);
+
+
+
+        function remaining(endtime) {
+
+            var t = Date.parse(endtime) - Date.parse(new Date());
+            var seconds = Math.floor((t / 1000) % 60);
+            var minutes = Math.floor((t / 1000 / 60) % 60);
+            return { minutes, seconds };
+        }
+
+        function runClock( endtime) {
+
+            function updateClock() {
+                var ti = remaining(endtime);
+                document.getElementById("time").innerHTML = "Time Remaining <br>" + ti.minutes + " Minutes " + ti.seconds + " Seconds";
+
+                
+                if (ti.total < 0) {
+                    clearInterval(timeinterval);
+                    window.location.href = "Time.html";
+                    document.getElementById("time").innerHTML = "Time Expired";
+                }
+            }
+
+            updateClock();
+            var timeinterval = setInterval(updateClock, 1000);
+        }
+        runClock(end);
+
+
+        let select2 = document.querySelector('#make');
+        select2.addEventListener('change', go, false);
+
+    </script>
+
+    <!-- Footer-->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Dineen Insurance | 2022</p>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="js/scripts.js"></script>
+
+
+</body>
+
+</html>
